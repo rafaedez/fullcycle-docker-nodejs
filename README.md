@@ -1,2 +1,2 @@
 # fullcycle-docker-nodejs
-Docker Nginx+Nodejs
+Docker Nginx+mysql+Nodejs
