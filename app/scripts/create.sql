@@ -1,0 +1,1 @@
+create table nodedb.people (id int auto_increment not null, name varchar(40) not null, primary key(id));
