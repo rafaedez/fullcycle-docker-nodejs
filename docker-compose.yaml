@@ -6,6 +6,7 @@ services:
     build: 
       context: ./app
     container_name: app
+    image: node_app
     restart: always
     networks:
       - nodenet
