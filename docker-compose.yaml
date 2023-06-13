@@ -14,7 +14,8 @@ services:
     depends_on:
       - db
       - nginx
-    command: ["./wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
+    volumes:
+      - ./app:/usr/src/app
 
   db:
     image: mysql:5.7

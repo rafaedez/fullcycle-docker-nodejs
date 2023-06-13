@@ -1,0 +1,11 @@
+FROM node:15
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN chmod +x ./wait-for-it.sh
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]

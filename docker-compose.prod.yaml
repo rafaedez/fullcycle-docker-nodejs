@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  app:
+    build: 
+      context: ./app
+      dockerfile: ./app/Dockerfile.prod
+    container_name: app
+    restart: always
+    networks:
+      - nodenet
+    ports:
+      - "3030:3000"
+    depends_on:
+      - db
+      - nginx
+    command: ["./wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
+
+  db:
+    image: mysql:5.7
+    command: 
+      - --innodb-use-native-aio=0 
+      - --lower_case_table_names=1
+    container_name: db
+    restart: always
+    tty: true
+    volumes: 
+      - ./mysql:/var/lib/mysql
+      - ./app/scripts:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - nodenet
+
+  nginx:
+    restart: always
+    build: 
+      context: ./nginx
+    container_name: nginx
+    networks:
+      - nodenet
+    ports:
+      - "8080:80"
+
+networks:
+  nodenet:
+    driver: bridge
