@@ -17,6 +17,9 @@ services:
       - nginx
     volumes:
       - ./app:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/scripts
+    command: ["./scripts/wait-for-it.sh", "mysql:3306", "--", "npm", "run", "dev"]
 
   db:
     image: mysql:5.7
@@ -28,7 +31,7 @@ services:
     tty: true
     volumes: 
       - ./mysql:/var/lib/mysql
-      - ./app/scripts:/docker-entrypoint-initdb.d
+      - ./app/scriptsdb:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
