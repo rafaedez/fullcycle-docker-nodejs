@@ -12,5 +12,3 @@ COPY ./scripts/wait-for-it.sh ./scripts/wait-for-it.sh
 RUN chmod +x ./scripts/wait-for-it.sh
 
 EXPOSE 3000
-
-CMD ["npm","run","dev"]
